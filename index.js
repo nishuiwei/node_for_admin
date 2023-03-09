@@ -7,10 +7,16 @@ const {
 	messageStoreMiddleware,
 } = require('./utils/socket')
 require('dotenv').config()
+const bodyParser = require('body-parser')
+const fs = require('fs')
 
 // 实例化 express
 const app = express()
 const PORT = process.env.PORT || 5555
+// 去除指纹
+app.disable('x-powered-by')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // 创建一个 http 服务器
 const server = http.createServer(app)
@@ -47,6 +53,25 @@ io.on('connection', (socket) => {
 
 app.get('/', (req, res) => {
 	res.send('work...')
+})
+
+// fs.readFileSync('./router/**.js', (err, data) => {
+// 	if (err) return err
+// 	console.log(data)
+// })
+
+fs.readdir('./router', (err, data) => {
+	if (err) return err
+	if (data.length !== 0) {
+		const routers = data
+		for (let i = 0; i < routers.length; i++) {
+			const routerFile = routers[i]
+			const router = routerFile.split('.')[0]
+			const path = `${__dirname}/router/${routerFile}`
+			console.log(`/api/${router}`)
+			app.use(`/api/${router}`, require(path))
+		}
+	}
 })
 
 // 监听端口号
