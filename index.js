@@ -2,13 +2,10 @@ const express = require('express')
 const http = require('http')
 const cors = require('cors')
 const {
-	connectedUsers,
 	directMessageHandler,
-	messageStoreHandler,
-} = require('./utils/socket')
-const {
+	connInitHandler,
 	messageStoreMiddleware,
-} = require('./middleware/messageStoreMiddleware')
+} = require('./utils/socket')
 require('dotenv').config()
 
 // 实例化 express
@@ -39,10 +36,7 @@ io.on('connection', (socket) => {
 	})
 
 	socket.on('conn-init', (data) => {
-		connectedUsers = {
-			...connectedUsers,
-			[data.sender]: socket.id,
-		}
+		connInitHandler(data, socket)
 		messageStoreMiddleware({}, io, data.sender)
 	})
 
