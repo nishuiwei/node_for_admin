@@ -9,7 +9,9 @@ const {
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const fs = require('fs')
+const configMongoDB = require('./utils/mongo')
 
+configMongoDB()
 // 实例化 express
 const app = express()
 const PORT = process.env.PORT || 5555
