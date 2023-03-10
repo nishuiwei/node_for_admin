@@ -31,7 +31,6 @@ const loginRequest = asyncHandler(async (req, res) => {
 
 const registerRequest = asyncHandler(async (req, res) => {
 	const { email, password, username } = req.body
-	console.log('123')
 	const result = await User.findOne({ email })
 	if (result) {
 		res.status(400).json({

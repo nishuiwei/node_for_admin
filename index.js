@@ -57,11 +57,6 @@ app.get('/', (req, res) => {
 	res.send('work...')
 })
 
-// fs.readFileSync('./router/**.js', (err, data) => {
-// 	if (err) return err
-// 	console.log(data)
-// })
-
 fs.readdir('./router', (err, data) => {
 	if (err) return err
 	if (data.length !== 0) {
@@ -70,7 +65,6 @@ fs.readdir('./router', (err, data) => {
 			const routerFile = routers[i]
 			const router = routerFile.split('.')[0]
 			const path = `${__dirname}/router/${routerFile}`
-			console.log(`/api/${router}`)
 			app.use(`/api/${router}`, require(path))
 		}
 	}
