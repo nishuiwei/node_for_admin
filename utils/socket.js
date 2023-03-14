@@ -15,6 +15,7 @@ const directMessageHandler = async (data, socket, userId = null, io) => {
 		id: data.userId,
 		userId: data.id,
 	}
+	console.log(connectedUsers)
 	socket.to(connectedUsers[data.userId]).emit('direct-message', { ...identity })
 
 	socket.emit('direct-message', { ...data })
