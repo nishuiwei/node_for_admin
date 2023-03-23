@@ -3,10 +3,11 @@ const {
 	getMenusRequest,
 	setMenusRequest,
 	removeMenusRequest,
+	editMenusRequest,
 } = require('../controller/menus')
 const router = express.Router()
 
 router.route('/').get(getMenusRequest).post(setMenusRequest)
-router.route('/:id').delete(removeMenusRequest)
+router.route('/:id').delete(removeMenusRequest).patch(editMenusRequest)
 
 module.exports = router
