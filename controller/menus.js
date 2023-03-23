@@ -19,7 +19,11 @@ const setMenusRequest = asyncHandler(async (req, res) => {
 		meta_transition,
 	} = req.body
 
-	const path = index.replace(/.$/, '')
+	let path = index
+
+	if (index[index.length - 1] === '/') {
+		path = index.replace(/.$/, '')
+	}
 
 	const name = path.replace('/', '').replaceAll('/', '-')
 
@@ -98,7 +102,11 @@ const editMenusRequest = asyncHandler(async (req, res) => {
 		parent_code,
 	} = req.body
 
-	const path = index.replace(/.$/, '')
+	let path = index
+
+	if (index[index.length - 1] === '/') {
+		path = index.replace(/.$/, '')
+	}
 
 	const name = path.replace('/', '').replaceAll('/', '-')
 
