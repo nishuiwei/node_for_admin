@@ -148,7 +148,7 @@ const editMenusRequest = asyncHandler(async (req, res) => {
  */
 
 const getMenusRequest = asyncHandler(async (req, res) => {
-	const result = await Menus.find({})
+	const result = await Menus.find({}).sort({ parent_code: 1 })
 	if (!result) {
 		res.status(400).json({
 			success: false,
@@ -160,7 +160,11 @@ const getMenusRequest = asyncHandler(async (req, res) => {
 	for (let i = 0; i < result.length; i++) {
 		const item = result[i]
 		if (!item.parent_code) {
-			menus.push({ ...item['_doc'], children: [] })
+			const menu = {
+				...item['_doc'],
+				children: [],
+			}
+			menus.push(menu)
 			itemMap[item.menu_code] = i
 		} else {
 			menus[itemMap[item.parent_code]].children.push(item)
