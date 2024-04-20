@@ -14,7 +14,9 @@ const protect = asyncHandler(async (req, res, next) => {
 			req.user = await User.findById(decoded.data).select('-password')
 			next()
 		} catch (error) {
-			res.status(401)
+			res.status(401).json({
+				message: '未授权，token验证失败',
+			})
 			throw new Error('未授权，token验证失败')
 		}
 	}

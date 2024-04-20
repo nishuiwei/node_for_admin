@@ -3,10 +3,11 @@ const User = require('../schemas/UserSchemas')
 const generateToken = require('../utils/generateToken')
 
 const loginRequest = asyncHandler(async (req, res) => {
-	const { email, password } = req.body
+	const { email: emailData, password } = req.body
 	const user = await User.findOne({
-		email,
+		'email.email': emailData,
 	})
+	console.log(user)
 	if (!user) {
 		res.status(400).json({
 			code: 400,
@@ -20,6 +21,7 @@ const loginRequest = asyncHandler(async (req, res) => {
 			code: 200,
 			data: {
 				id: user._id,
+				email: user.email,
 				token: generateToken(user._id),
 			},
 		})
@@ -41,7 +43,10 @@ const registerRequest = asyncHandler(async (req, res) => {
 	}
 	if (!result) {
 		const data = {
-			email,
+			email: {
+				email,
+				secret: '',
+			},
 			password,
 			username,
 		}

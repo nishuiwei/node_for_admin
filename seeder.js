@@ -1,6 +1,6 @@
 const colors = require('colors')
 const configMongoDB = require('./utils/mongo')
-const Menus = require('./schemas/menuScheams')
+const Menus = require('./schemas/menuSchemas')
 const menus = require('./data/menus')
 
 configMongoDB()

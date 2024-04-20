@@ -2,6 +2,27 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcryptjs')
 
+const EmailSchema = new Schema(
+	{
+		email: {
+			type: String,
+			required: true,
+			trim: true,
+			unique: true,
+		},
+		secret: {
+			type: String,
+			trim: true,
+		},
+	},
+	{
+		timestamps: {
+			createdAt: 'createdAt',
+			updatedAt: 'updatedAt',
+		},
+	}
+)
+
 const UserSchema = new Schema(
 	{
 		username: {
@@ -9,12 +30,7 @@ const UserSchema = new Schema(
 			required: true,
 			trim: true,
 		},
-		email: {
-			type: String,
-			required: true,
-			trim: true,
-			unique: true,
-		},
+		email: EmailSchema,
 		password: {
 			type: String,
 			required: true,

@@ -5,9 +5,10 @@ const {
 	removeMenusRequest,
 	editMenusRequest,
 } = require('../controller/menus')
+const { protect } = require('../middleware/authMiddleware')
 const router = express.Router()
 
-router.route('/').get(getMenusRequest).post(setMenusRequest)
+router.route('/').get(protect, getMenusRequest).post(setMenusRequest)
 router.route('/:id').delete(removeMenusRequest).patch(editMenusRequest)
 
 module.exports = router

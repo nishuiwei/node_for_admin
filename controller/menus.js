@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-const Menus = require('../schemas/menuScheams')
+const Menus = require('../schemas/menuSchemas')
 
 /**
  *  @method POST
@@ -17,6 +17,7 @@ const setMenusRequest = asyncHandler(async (req, res) => {
 		meta_title,
 		meta_requires_auth,
 		meta_transition,
+		parent_code,
 	} = req.body
 
 	let path = index
@@ -26,8 +27,8 @@ const setMenusRequest = asyncHandler(async (req, res) => {
 	}
 
 	const name = path.replace('/', '').replaceAll('/', '-')
-
 	const menuItem = {
+		parent_code,
 		menu_code,
 		title,
 		index: path,
@@ -39,6 +40,14 @@ const setMenusRequest = asyncHandler(async (req, res) => {
 			transition: meta_transition,
 		},
 	}
+	// if (parent_code) {
+	// 	const parent = await Menus.findOne({
+	// 		code: parent_code,
+	// 	})
+	// 	parent.children.push(menuItem)
+	// 	parent.save()
+	// 	return
+	// }
 
 	const result = await Menus.create(menuItem)
 	if (result) {
