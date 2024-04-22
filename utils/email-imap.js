@@ -3,7 +3,7 @@ const Imap = require('node-imap')
 // 创建一个 IMAP 连接
 const imap = new Imap({
 	user: 'w920098695@sina.cn',
-	password: '9f4d03b5fecc19c9',
+	password: '--------',
 	host: 'imap.sina.cn',
 	port: 993,
 	tls: true,
