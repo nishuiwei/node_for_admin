@@ -10,7 +10,7 @@ const config = {
 	secureConnection: false,
 	auth: {
 		user: 'w920098695@sina.cn', //注册的邮箱账号
-		pass: '9f4d03b5fecc19c9', //邮箱的授权码,需开通stmp服务
+		pass: '------', //邮箱的授权码,需开通stmp服务
 	},
 }
 // 创建一个SMTP客户端对象
